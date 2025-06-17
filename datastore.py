@@ -19,3 +19,19 @@ class DataStore:
             del self.store[key]
             return 1
         return 0
+    def exists(self, key):
+        # Return 1 if key exists, 0 if not
+        return 1 if key in self.store else 0
+
+    def incr(self, key):
+        # Increment the integer value of a key by 1
+        if key not in self.store:
+            self.store[key] = "1"
+            return 1
+        try:
+            val = int(self.store[key])
+            val += 1
+            self.store[key] = str(val)
+            return val
+        except ValueError:
+            return "ERR value is not an integer"
